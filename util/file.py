@@ -1,3 +1,4 @@
+import os
 def read(thePath,dim=2,gap=",",ifFloat=False):
     '''
 
@@ -43,3 +44,8 @@ def write(thePath,data,dim=2,gap=','):
             data=[str(x) for x in data]
             f.writelines(gap.join(data))
     return True
+
+def getRootPath():
+    cur_path = os.path.abspath(os.path.dirname(__file__))
+    root_path = cur_path[:cur_path.find("dataScienceProject\\") + len("dataScienceProject\\")]
+    return root_path
