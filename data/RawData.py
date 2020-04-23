@@ -7,17 +7,16 @@ import util.file as file
 可以自己增加方法
 '''
 
-
 class RawData:
     def __init__(self):
-        self.dataList=[]
+        self.__caseList=[]
 
     def __init__(self,src):
         #todo:读取处理好的数据
         data=file.read(src)
-        self.dataList =[]
+        self.__caseList =[]
         for item in data:
-            self.dataList.append(RawData.Item())
+            self.__caseList.append(RawData.caseItem())
 
     def dispose(self,jsonPath):
         #todo：读取test_data.json并进行相关操作，实例化Item对象并append到dataList中
@@ -28,14 +27,24 @@ class RawData:
         pass
 
 
+    class caseItem:
+        def __init__(self,caseId,finalScore,caseContent,upLoadFre,upLoadTime,aveCodeLines):
+            self.__caseId=caseId
 
-    class Item:
-        def __init__(self):
-            self.user_id
-            self.case_id
-            self.final_score
-            self.case_type
-            self.case_content#题目内容属性，string类型，建议用json中的地址下下来保存，详情可看“《数据科学与基础》大作业补充说明.pdf”
-            self.upLoad_fre#最大上传次数
-            self.upLoad_timestamp=[]#每次上传的时间戳，列表类型，长度为最大上传次数
+            self.__caseContent=caseContent#题目内容，string类型，建议用json中的地址下下来保存，详情可看“《数据科学与基础》大作业补充说明.pdf”
 
+            #一定要剔除掉一些数据，比如某个人没有写这道题，计算平均代码行数的时候就不考虑这个人
+            self.__aveFinalScore=finalScore#学生平均得分
+            self.__aveFre=upLoadFre#学生平均最大上传次数
+            self.__time=upLoadTime#学生平均用时（用最后一次上传时间戳减去第一次上传时间戳来估计）
+            self.__aveCodeLines=aveCodeLines#学生平均代码行数，每个学生的代码行数用最后一次提交的代码行数代替？
+        def getCaseId(self):
+            return self.__caseId
+        def getFinalSc(self):
+            return self.__aveFinalScore
+        def getCaseContent(self):
+            return self.__caseContent
+        def getUpLoadFre(self):
+            return self.__aveFre
+        def getTime(self):
+            return self.__time

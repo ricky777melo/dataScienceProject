@@ -45,6 +45,7 @@ def threeD(xd,yd,zd,Xlabel='x',Ylabel='y',Zlabel='z'):
 def progressBar(time,times,prompt="已完成："):
     now=round((time + 1) * 100 / times,2)
     print('\r' + prompt + str(now), end='%', flush=True)
+    print('\n'+"已完成")
 
 if __name__=='__main__':
     threeD()
